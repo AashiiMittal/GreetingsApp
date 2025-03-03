@@ -30,4 +30,11 @@ public class GreetingController {
                               @RequestParam(required = false) String lastName) {
         return greetingService.getGreetingMessage(firstName, lastName);
     }
+    @GetMapping("ucfour")
+    public String greet(@RequestParam(value = "firstName", required = false) String firstName,
+                        @RequestParam(value = "lastName", required = false) String lastName) {
+        String message = greetingService.getGreetingMessage(firstName, lastName);
+        greetingService.saveGreetingMessage(message);
+        return "{\"message\": \"" + message + "\"}";
+    }
 }
