@@ -5,6 +5,8 @@ import com.example.GreetingsApp.Repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class GreetingService {
 
@@ -35,4 +37,14 @@ public class GreetingService {
         Greeting greeting = new Greeting(message);
         greetingRepository.save(greeting);
     }
+    public Optional<Greeting> getGreetingById(Long id) {
+        Optional<Greeting> greeting = greetingRepository.findById(id);
+        if (greeting.isPresent()) {
+            System.out.println("Found Greeting: " + greeting.get().getMessage());
+        } else {
+            System.out.println("Greeting not found with ID: " + id);
+        }
+        return greeting;
+    }
+
 }

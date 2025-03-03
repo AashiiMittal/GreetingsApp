@@ -1,8 +1,12 @@
 package com.example.GreetingsApp.Controller;
 
+import com.example.GreetingsApp.Model.Greeting;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.GreetingsApp.Service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/greeting")
@@ -37,4 +41,16 @@ public class GreetingController {
         greetingService.saveGreetingMessage(message);
         return "{\"message\": \"" + message + "\"}";
     }
+    @GetMapping("/UC5/{id}")
+    public ResponseEntity<?> getGreetingById(@PathVariable Long id) {
+        Optional<Greeting> greeting = greetingService.getGreetingById(id);
+        if (greeting.isPresent()) {
+            return ResponseEntity.ok(greeting.get());
+        } else {
+            return ResponseEntity.status(404)
+                    .body("{\"error\": \"Greeting not found with ID: " + id + "\"}");
+        }
+    }
+
+
 }
