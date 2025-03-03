@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.GreetingsApp.Service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -51,6 +52,9 @@ public class GreetingController {
                     .body("{\"error\": \"Greeting not found with ID: " + id + "\"}");
         }
     }
-
+    @GetMapping("/all")
+    public List<Greeting> getAllGreetings() {
+        return greetingService.getAllGreetings();
+    }
 
 }
